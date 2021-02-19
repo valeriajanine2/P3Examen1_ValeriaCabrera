@@ -26,7 +26,7 @@ void Liga::agregarEquipo(Equipo* e){
 
 void Liga::agregarPartidos(Partidos* p){
 	Jornada.push_back(p);
-	cout<<"Partido entre "<<p->getEquipo1()<<" y "<<p->getEquipo2()<<" listo para jugar"<<endl;
+	cout<<"Partido entre "<<p->getEquipo1()->getNombre()<<" y "<<p->getEquipo2()->getNombre()<<" listo para jugar"<<endl;
 }
 
 void Liga::listarEquipos(){
@@ -36,6 +36,15 @@ void Liga::listarEquipos(){
 		cout<<i<<") "<<e->getNombre()<<" Skill: "<<e->getSkill()<<endl;
 	}
 	
+}
+
+void Liga::imprimirJornada(){
+	cout<<endl<<"JORNADA ACTUAL"<<endl;
+	for(int i = 0; i < Jornada.size(); i++){
+		Partidos* p = new Partidos();
+		p = Jornada.at(i);
+		cout<<i<<" ) "<<p->getEquipo1()->getNombre()<<" vs. "<<p->getEquipo2()->getNombre()<<" "<<p->getGoles1()<<" - "<<p->getGoles2()<<endl;
+	}
 }
 
 

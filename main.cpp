@@ -56,6 +56,8 @@ int main(int argc, char** argv) {
 						league->agregarEquipo(equipo);
 						
 						temp.push_back(equipo);
+						
+						tabla->agregarPuntos(puntos);
 
 						break;
 					}//fin del case de agregar
@@ -139,10 +141,11 @@ int main(int argc, char** argv) {
 			case 2: {
 
 				int team1, team2;
-				int limit = temp.size();
+				
 				
 				while(temp.size()!=0){
 					
+					int limit = temp.size();
 					team1 = 0 + (rand()%limit);
 					team2 = 0 + (rand()%limit);
 					
@@ -154,11 +157,10 @@ int main(int argc, char** argv) {
 					Equipo* equipo1 = temp.at(team1);
 					Equipo* equipo2 = temp.at(team2);
 					
-					Partidos* game = new Partidos(equipo1,equipo2,0,0,false);
+					Partidos* p = new Partidos(equipo1,equipo2,0,0,false);
 					
-					league->agregarPartidos(game);
+					league->agregarPartidos(p);
 					
-					//eliminar el mayor de la lista temporal
 					if(team1>team2){
 						temp.erase(temp.begin() + team1);
 						temp.erase(temp.begin() + team2);
@@ -166,25 +168,95 @@ int main(int argc, char** argv) {
 						temp.erase(temp.begin() + team2);
 						temp.erase(temp.begin() + team1);
 					}
+				}
 					
-					cout<<"Tam: "<<temp.size()<<endl;
+				break;
+			}
+
+			case 3:{		                                    
+				
+				
+				for(int i = 0; i < league->getJornada().size(); i++){
+					
+					Puntos* puntos1 = new Puntos();
+					Puntos* puntos2 = new Puntos();
+					
+					int rand1, rand2;
+					rand1 = -15 + (rand()%15);
+					rand2 = -15 + (rand()%15);
+					Partidos* p = new Partidos();
+					p = league->getJornada().at(i);
+					int avg1 = p->getEquipo1()->getSkill() + rand1;
+					int avg2 = p->getEquipo2()->getSkill() + rand2;
+					int goles1 = avg1/10;
+					int goles2 = avg2/10;
+					
+					//determinar goles
+					if(goles1<=0){
+						p->setGoles1(0);
+					}else if(goles2<=0){
+						p->setGoles2(0);
+					}else{
+						p->setGoles1(goles1);
+						p->setGoles2(goles2);
+					}
+					
+					for(int i = 0; i < tabla->getPuntosEquipo().size(); i++){
+						Puntos* points = new Puntos();
+						points = tabla->getPuntosEquipo().at(i);
+						//si el nombre del equipo es igual
+						if(points->getEquipo()->getNombre() == p->getEquipo1()->getNombre() ){
+							puntos1 = points;
+						}else if(points->getEquipo()->getNombre() == p->getEquipo2()->getNombre()){
+							puntos2 = points;
+						}
+					}
+					
+					//set a favor
+					int set1 = puntos1->getAFavor() + goles1;
+					puntos1->setAFavor(set1);
+					int set2 = puntos2->getAFavor() + goles2;
+					puntos2->setAFavor(set2);
+					
+					//en contra
+					int set3 = puntos1->getEnContra() + goles2;
+					puntos1->setEnContra(set3);
+					int set4 = puntos2->getEnContra() + goles1;
+					puntos2->setEnContra(set4);
+					
+					//determinar ganador
+					if(avg1>avg2){
+						int g = puntos1->getGanados() + 1;
+						puntos1->setGanados(g);
+						int p = puntos2->getPerdidos() + 1;
+						puntos2->setPerdidos(p);
+					}else if(avg2>avg1){
+						int g = puntos2->getGanados() + 1;
+						puntos2->setGanados(g);
+						int p = puntos1->getPerdidos() + 1;
+						puntos1->setPerdidos(p);
+					}else{
+						int e = puntos1->getEmpatados() + 1;
+						int e2 = puntos2->getEmpatados() + 1;
+						puntos1->setEmpatados(e);
+						puntos2->setEmpatados(e2);
+					}
+					
 				}
 				
 				
 				
 
 				break;
-			}
-
-			case 3: {
-				
-				
-
-				break;
-			}
+		 	}
 
 			case 4: {
 
+				tabla->imprimirTabla();
+				league->imprimirJornada();
+				cout<<endl;
+				
+					
 				break;
 			}
 

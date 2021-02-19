@@ -18,6 +18,8 @@ class Puntos {
 		Puntos(Equipo*,int,int,int,int,int);
 		~Puntos();
 		Equipo* getEquipo();
+		string imprimirPuntos();
+		string puntosTotales();
 		int getAFavor();
 		int getEnContra();
 		int getGanados();

@@ -14,6 +14,8 @@ class TablaPosiciones {
 		TablaPosiciones(vector<Puntos*>);
 		~TablaPosiciones();
 		vector<Puntos*> getPuntosEquipo();
+		void agregarPuntos(Puntos*);
+		void imprimirTabla();
 		
 };
 #endif

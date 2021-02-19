@@ -24,6 +24,19 @@ Equipo* Puntos::getEquipo(){
 	return this->equipo;
 }
 
+string Puntos::imprimirPuntos(){
+	string resp;
+	resp = equipo->getNombre() + "|" + std::to_string(ganados) + "|" + std::to_string(perdidos) + "|" + std::to_string(empatados) + "|" + std::to_string(aFavor) + "|" + std::to_string(enContra) + "|";
+	return resp;
+}
+
+string Puntos::puntosTotales(){
+	string resp;
+	int points = (ganados*3) + (empatados);
+	resp = std::to_string(points);
+	return resp;
+}
+
 void Puntos::setEquipo(Equipo* equipo){
 	this->equipo=equipo;
 }

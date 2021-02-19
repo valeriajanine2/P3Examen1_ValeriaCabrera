@@ -28,5 +28,6 @@ class Liga {
   void agregarPartidos(Partidos*);
   void listarEquipos();
   void imprimirTabla();
+  void imprimirJornada();
 };
 #endif
