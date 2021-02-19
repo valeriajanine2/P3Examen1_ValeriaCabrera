@@ -24,11 +24,17 @@ int main(int argc, char** argv) {
 
 	int opcion = 0;
 	int opcion2 = 0;
+	int contGlobal = 0; //este lo uso para validar que si ya se generaron partido no se pueda ir al crud
 	while(opcion!=5) {
 
 		cout<<"MENU\n1) Mantenimiento de Equipos\n2) Generar Jornada de Partidos\n3) Simular Partidos\n4) Imprimir Tabla de Posiciones y Resultados\n5) Salir"<<endl;
 		cout<<"Ingrese el numero de la opcion que desea realizar: ";
 		cin>>opcion;
+		
+		if(opcion==1 && contGlobal>0){
+			cout<<"Lo siento ya no puede dar mantenimiento porque ya empezaron los partidos"<<endl;
+			opcion=0;
+		}
 
 		switch(opcion) {
 			case 1: {
@@ -140,11 +146,12 @@ int main(int argc, char** argv) {
 
 			case 2: {
 
+				contGlobal++;
+				
 				int team1, team2;
 				
-				
 				while(temp.size()!=0){
-					
+				
 					int limit = temp.size();
 					team1 = 0 + (rand()%limit);
 					team2 = 0 + (rand()%limit);
@@ -157,18 +164,46 @@ int main(int argc, char** argv) {
 					Equipo* equipo1 = temp.at(team1);
 					Equipo* equipo2 = temp.at(team2);
 					
-					Partidos* p = new Partidos(equipo1,equipo2,0,0,false);
+					int cont=0;
+					int cont1=0;
 					
-					league->agregarPartidos(p);
+					for(int i = 0; i < league->getJornada().size(); i++){
+						Partidos* games = league->getJornada().at(i);
+						Equipo* t1 = games->getEquipo1();
+						Equipo* t2 = games->getEquipo2();
+						if(equipo1->getNombre()==t1->getNombre() || equipo1->getNombre()==t2->getNombre() ){
+							cont++;
+						}
+					}//fin del for que lleva el contador
 					
-					if(team1>team2){
+					for(int i = 0; i < league->getJornada().size(); i++){
+						Partidos* games = league->getJornada().at(i);
+						Equipo* t1 = games->getEquipo1();
+						Equipo* t2 = games->getEquipo2();
+						if(equipo2->getNombre()==t1->getNombre() || equipo2->getNombre()==t2->getNombre() ){
+							cont1++;
+						}
+					}//fin del for que lleva el contador
+					
+					if(cont<2 && cont1<2){
+						Partidos* p = new Partidos(equipo1,equipo2,0,0,false);
+						league->agregarPartidos(p);
+					}else if(cont==2 && cont1==2){
+						if(team1>team2){
 						temp.erase(temp.begin() + team1);
 						temp.erase(temp.begin() + team2);
-					}else{
+						}else{
 						temp.erase(temp.begin() + team2);
 						temp.erase(temp.begin() + team1);
+						}
+					}else if(cont==2){
+						temp.erase(temp.begin() + team1);
+					}else if(cont1==2){
+						temp.erase(temp.begin() + team2);
 					}
+				
 				}
+					
 					
 				break;
 			}
@@ -272,6 +307,9 @@ int main(int argc, char** argv) {
 		}
 
 	}//fin del while del menu
+	
+	delete league;
+	delete tabla;
 
 	return 0;
 }

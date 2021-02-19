@@ -26,7 +26,9 @@ Equipo* Puntos::getEquipo(){
 
 string Puntos::imprimirPuntos(){
 	string resp;
-	resp = equipo->getNombre() + "|" + std::to_string(ganados) + "|" + std::to_string(perdidos) + "|" + std::to_string(empatados) + "|" + std::to_string(aFavor) + "|" + std::to_string(enContra) + "|";
+	int totaljugados;
+	totaljugados=ganados+perdidos+empatados;
+	resp = equipo->getNombre() +"|" +std::to_string(totaljugados) + "|" + std::to_string(ganados) + "|" + std::to_string(perdidos) + "|" + std::to_string(empatados) + "|" + std::to_string(aFavor) + "|" + std::to_string(enContra) + "|";
 	return resp;
 }
 

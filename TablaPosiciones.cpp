@@ -21,6 +21,7 @@ void TablaPosiciones::agregarPuntos(Puntos* p){
 void TablaPosiciones::imprimirTabla(){
 	
 	cout<<endl<<"TABLA DE POSICIONES MINI LIGA"<<endl;
+	cout<<"|TotalJugados|Ganados|Perdidos|Empatados|AFavor|EnContra|"<<endl;
 	for(int i = 0; i < puntosEquipo.size(); i++){
 		Puntos* p = new Puntos();
 		p = puntosEquipo.at(i);
