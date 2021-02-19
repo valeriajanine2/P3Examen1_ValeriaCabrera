@@ -3,6 +3,8 @@
 #include<string>
 #include<iostream>
 #include <vector>
+#include "Puntos.hpp"
+
 using namespace std;
 class TablaPosiciones {
 	private:
@@ -12,5 +14,6 @@ class TablaPosiciones {
 		TablaPosiciones(vector<Puntos*>);
 		~TablaPosiciones();
 		vector<Puntos*> getPuntosEquipo();
+		
 };
 #endif

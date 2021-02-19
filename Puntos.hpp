@@ -3,6 +3,7 @@
 #include<string>
 #include<iostream>
 #include <vector>
+#include "Equipo.hpp"
 using namespace std;
 class Puntos {
 	private:
@@ -14,7 +15,7 @@ class Puntos {
 		int empatados;
 	public:
 		Puntos();
-		Puntos(Equipo*,int,int,int,int);
+		Puntos(Equipo*,int,int,int,int,int);
 		~Puntos();
 		Equipo* getEquipo();
 		int getAFavor();

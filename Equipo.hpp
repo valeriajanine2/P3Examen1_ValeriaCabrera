@@ -8,9 +8,9 @@ class Equipo {
   string nombre;
   int skill;
   public:
-  equipo();  
-  equipo(string);
-  ~equipo();
+  Equipo();  
+  Equipo(string,int);
+  ~Equipo();
   string getNombre();
   int getSkill();
   void setNombre(string);

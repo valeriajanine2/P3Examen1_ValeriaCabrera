@@ -3,6 +3,8 @@
 #include<string>
 #include<iostream>
 #include <vector>
+#include "Equipo.hpp"
+
 using namespace std;
 class Partidos {
 	private:

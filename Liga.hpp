@@ -3,6 +3,10 @@
 #include<string>
 #include<iostream>
 #include <vector>
+#include "Equipo.hpp"
+#include "Partidos.hpp"
+#include "TablaPosiciones.hpp"
+
 using namespace std;
 class Liga {
   private:
@@ -20,5 +24,9 @@ class Liga {
   TablaPosiciones* getTabla();
   void setNombre(string);
   void setTabla(TablaPosiciones*);
+  void agregarEquipo(Equipo*);
+  void agregarPartidos(Partidos*);
+  void listarEquipos();
+  void imprimirTabla();
 };
 #endif
